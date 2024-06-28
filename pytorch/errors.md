@@ -29,7 +29,7 @@ Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
 ### Situation 
 
 While constructing NodeNetwork and ColorNetwork for GCP RL project, this error occurred due to the ColorNetwork. 
-
+Since I used same edge index for NodeNetwork and ColorNetwork and nodes in ColorNetwork and edge index differ, this error happened.  
 
 
 
@@ -37,10 +37,9 @@ While constructing NodeNetwork and ColorNetwork for GCP RL project, this error o
 
 ### Solution 
 
-Since the shape of NodeNetwork and ColorNetwork differs, I should've done preprocesses for ColorNetwork before passing color features to GNNStack.
+I had two choices to solve this problem. First one was to create color edge index, using color as nodes. But this method is quite demanding and seems not that effective. 
 
-Thus after passing squeezed color feature, the error was solved. 
-
+Thus we just used simple MLPs in ColorNetwork. (Used GNN in NodeNetwork)
 
 
 
